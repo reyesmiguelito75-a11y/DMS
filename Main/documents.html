@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Documents - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p>
+            </div>
+        </div>
+        <p class="menu-title">MAIN MENU</p>
+        <a href="index.html"><span>▦</span> Dashboard</a>
+        <a class="active" href="documents.html"><span>▤</span> Documents</a>
+        <a href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a href="versions.html"><span>↻</span> Version History</a>
+        <a href="archive.html"><span>▣</span> Archive</a>
+        <a href="users.html"><span>♙</span> Users</a>
+        <div class="account">
+            <div class="avatar">A</div>
+            <div><strong>Administrator</strong>
+                <p>System Account</p>
+            </div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div><p class="breadcrumb">Pages / Documents</p>
+                <h1>Documents</h1>
+            </div>
+            <a class="upload-button" href="upload.html">＋ Upload Document</a>
+        </div>
+        <div class="content-box">
+            <div class="box-heading">
+                <div><h2>All Documents</h2>
+                    <p>View and manage uploaded documents</p>
+                </div>
+                <span class="record-count">4 sample records</span>
+            </div>
+            <div class="filter-row">
+                <input type="text" placeholder="Search document name...">
+                <select>
+                    <option>All Categories</option>
+                    <option>Reports</option>
+                    <option>Forms</option>
+                    <option>Proposals</option>
+                </select>
+                <select>
+                    <option>All Status</option>
+                    <option>Pending</option>
+                    <option>Approved</option>
+                    <option>Rejected</option>
+                </select>
+                <button type="button" class="secondary-button">Search</button>
+            </div>
+            <div class="table-container">
+                <table>
+                <thead>
+                    <tr><th>DOCUMENT NAME</th>
+                    <th>CATEGORY</th>
+                    <th>UPLOADED BY</th>
+                    <th>DATE UPLOADED</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
+                        <td>Proposal</td>
+                        <td>Juan Dela Cruz</td>
+                        <td>Nov 3, 2026</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td><a class="table-link" href="versions.html">View</a>
+                    </td></tr>
+                    <tr><td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
+                        <td>Reports</td>
+                        <td>Maria Santos</td>
+                        <td>Nov 2, 2026</td>
+                        <td><span class="status approved">Approved</span></td>
+                        <td><a class="table-link" href="versions.html">View</a>
+                    </td></tr>
+                    <tr><td><span class="file-icon pdf">PDF</span> School Forms.pdf</td>
+                        <td>Forms</td><td>Pedro Reyes</td>
+                        <td>Nov 1, 2026</td>
+                        <td><span class="status approved">Approved</span></td>
+                        <td><a class="table-link" href="versions.html">View</a>
+                    </td></tr>
+                    <tr><td><span class="file-icon doc">DOC</span> Activity Report.docx</td>
+                        <td>Reports</td>
+                        <td>Ana Garcia</td>
+                        <td>Oct 30, 2026</td>
+                        <td><span class="status rejected">Rejected</span></td>
+                        <td><a class="table-link" href="versions.html">View</a>
+                    </td></tr>
+                </tbody>
+            </table></div>
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+</body>
+</html>

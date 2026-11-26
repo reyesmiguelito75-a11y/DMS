@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Approvals - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p></div>
+            </div><p class="menu-title">MAIN MENU</p>
+            <a href="index.html"><span>▦</span> Dashboard</a>
+            <a href="documents.html"><span>▤</span> Documents</a>
+            <a href="upload.html"><span>＋</span> Upload Document</a>
+            <a class="active" href="approvals.html"><span>✓</span> Approvals</a>
+            <a href="versions.html"><span>↻</span> Version History</a>
+            <a href="archive.html"><span>▣</span> Archive</a>
+            <a href="users.html"><span>♙</span> Users</a>
+            <div class="account"><div class="avatar">A</div>
+            <div><strong>Administrator</strong>
+            <p>System Account</p></div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar"><div><p class="breadcrumb">Pages / Approvals</p>
+            <h1>Approval Management</h1>
+        </div>
+    </div>
+        <div class="info-strip"><strong>Approval Process</strong>
+            <span>Documents submitted by users will appear here for review.</span>
+        </div>
+        <div class="content-box">
+            <div class="box-heading"><div><h2>Pending Documents</h2>
+                <p>Documents waiting for approval</p>
+            </div>
+            <span class="status pending">2 Pending</span>
+        </div>
+            <div class="table-container"><table>
+                <thead><tr><th>DOCUMENT NAME</th>
+                    <th>SUBMITTED BY</th>
+                    <th>DATE SUBMITTED</th>
+                    <th>STATUS</th><th>ACTION</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
+                        <td>Juan Dela Cruz</td><td>Nov 3, 2026</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td><a class="table-link" href="#review">Review</a></td>
+                    </tr>
+                    <tr><td><span class="file-icon doc">DOC</span> Activity Report.docx</td>
+                        <td>Ana Garcia</td><td>Oct 30, 2026</td>
+                        <td><span class="status pending">Pending</span></td>
+                        <td><a class="table-link" href="#review">Review</a></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+        <div class="content-box review-box" id="review">
+            <div class="box-heading">
+                <div><h2>Review Document</h2>
+                    <p>Sample review section for the approval process</p>
+                </div>
+            </div>
+            <div class="review-details">
+                <div><span>DOCUMENT</span><strong>Project Proposal.pdf</strong></div>
+                <div><span>SUBMITTED BY</span><strong>Juan Dela Cruz</strong></div>
+                <div><span>DATE SUBMITTED</span><strong>November 3, 2026</strong></div>
+            </div>
+            <div class="form-group">
+                <label for="remarks">Remarks</label>
+                <textarea id="remarks" rows="3" placeholder="Write comments or reason for rejection"></textarea>
+            </div>
+            <div class="form-actions">
+                <button type="button" class="primary-button">Approve</button>
+                <button type="button" class="danger-button">Reject</button>
+            </div>
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+</body>
+</html>

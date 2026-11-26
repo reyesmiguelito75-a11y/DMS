@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Archive - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2><p>DOCUMENT MANAGEMENT</p></div>
+        </div>
+        <p class="menu-title">MAIN MENU</p>
+        <a href="index.html"><span>▦</span> Dashboard</a>
+        <a href="documents.html"><span>▤</span> Documents</a>
+        <a href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a href="versions.html"><span>↻</span> Version History</a>
+        <a class="active" href="archive.html"><span>▣</span> Archive</a>
+        <a href="users.html"><span>♙</span> Users</a>
+
+        <div class="account">
+            <div class="avatar">A</div>
+            <div><strong>Administrator</strong><p>System Account</p></div>
+        </div>
+    </div>
+
+    <div class="main-content">
+        <div class="top-bar">
+            <div><p class="breadcrumb">Pages / Archive</p>
+                <h1>Archived Documents</h1>
+            </div>
+        </div>
+        <div class="info-strip">
+            <strong>Archive Storage</strong>
+            <span>Archived documents are kept for future reference and are not shown in the active document list.</span>
+        </div>
+        <div class="content-box">
+            <div class="box-heading">
+                <div><h2>Archived Files</h2>
+                    <p>Documents moved to archive</p>
+                </div>
+                <span class="record-count">3 sample records</span>
+            </div>
+            <div class="filter-row">
+                <input type="text" placeholder="Search archived documents...">
+                <select><option>All Categories</option>
+                    <option>Reports</option>
+                    <option>Forms</option>
+                </select>
+                    <button type="button" class="secondary-button">Search</button>
+            </div>
+            <div class="table-container">
+                <table>
+                <thead><tr><th>DOCUMENT NAME</th>
+                    <th>CATEGORY</th><th>ARCHIVED BY</th>
+                    <th>DATE ARCHIVED</th><th>REASON</th>
+                    <th>ACTION</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="file-icon pdf">PDF</span> Old Activity Plan.pdf</td>
+                        <td>Reports</td>
+                        <td>Administrator</td>
+                        <td>Oct 20, 2026</td>
+                        <td>Old record</td>
+                        <td><button type="button" class="small-button">Restore</button>
+                    </td></tr>
+                    <tr><td><span class="file-icon doc">DOC</span> Previous Guidelines.docx</td>
+                        <td>Forms</td>
+                        <td>Maria Santos</td>
+                        <td>Oct 15, 2026</td>
+                        <td>Replaced file</td>
+                        <td><button type="button" class="small-button">Restore</button>
+                    </td></tr>
+                    <tr><td><span class="file-icon pdf">PDF</span> 2025 Report.pdf</td>
+                        <td>Reports</td>
+                        <td>Administrator</td>
+                        <td>Oct 10, 2026</td>
+                        <td>Completed year</td>
+                        <td><button type="button" class="small-button">Restore</button>
+                    </td></tr>
+                </tbody>
+            </table></div>
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+</body>
+</html>

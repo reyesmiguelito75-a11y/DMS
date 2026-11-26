@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - DocuFlow</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p>
+            </div>
+        </div>
+        <p class="menu-title">MAIN MENU</p>
+        <a href="index.html"><span>▦</span> Dashboard</a>
+        <a href="documents.html"><span>▤</span> Documents</a>
+        <a href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a href="versions.html"><span>↻</span> Version History</a>
+        <a href="archive.html"><span>▣</span> Archive</a>
+        <a class="active" href="users.html"><span>♙</span> Users</a>
+        <div class="account">
+            <div class="avatar">A</div>
+            <div><strong>Administrator</strong>
+                <p>System Account</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="top-bar">
+            <div><p class="breadcrumb">Pages / Users</p>
+                <h1>User Management</h1>
+            </div>
+            <a class="upload-button" href="#add-user">＋ Add User</a>
+        </div>
+        <div class="content-box">
+            <div class="box-heading">
+                <div><h2>System Users</h2>
+                    <p>View the people who can access DocuFlow</p>
+                </div>
+                <span class="record-count">4 sample users</span>
+            </div>
+            <div class="filter-row">
+                <input type="text" placeholder="Search user name...">
+                <select>
+                    <option>All Roles</option>
+                    <option>Administrator</option>
+                    <option>Approver</option>
+                    <option>Staff</option>
+                </select>
+                <button type="button" class="secondary-button">Search</button>
+            </div>
+            <div class="table-container"><table>
+                <thead><tr><th>NAME</th>
+                    <th>EMAIL</th>
+                    <th>ROLE</th>
+                    <th>STATUS</th>
+                    <th>ACTION</th>
+                </tr></thead>
+                <tbody>
+                    <tr><td><div class="user-cell">
+                        <span class="user-avatar">A</span> Administrator</div></td>
+                        <td>admin@example.com</td>
+                        <td>Administrator</td>
+                        <td><span class="status approved">Active</span></td>
+                        <td><a class="table-link" href="#add-user">Edit</a></td>
+                    </tr>
+                    <tr><td><div class="user-cell">
+                        <span class="user-avatar">J</span> Juan Dela Cruz</div></td>
+                        <td>juan@example.com</td>
+                        <td>Staff</td>
+                        <td><span class="status approved">Active</span></td>
+                        <td><a class="table-link" href="#add-user">Edit</a></td>
+                    </tr>
+                    <tr><td><div class="user-cell">
+                        <span class="user-avatar">M</span> Maria Santos</div></td>
+                        <td>maria@example.com</td>
+                        <td>Approver</td>
+                        <td><span class="status approved">Active</span></td>
+                        <td><a class="table-link" href="#add-user">Edit</a></td>
+                    </tr>
+                    <tr><td><div class="user-cell">
+                        <span class="user-avatar">P</span> Pedro Reyes</div></td>
+                        <td>pedro@example.com</td><td>Staff</td>
+                        <td><span class="status rejected">Inactive</span></td>
+                        <td><a class="table-link" href="#add-user">Edit</a></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+        <div class="content-box form-box" id="add-user">
+            <div class="box-heading">
+                <div><h2>Add New User</h2>
+                    <p>Enter the details of the new system user</p>
+                </div>
+            </div>
+            <form><div class="form-grid">
+                <div class="form-group">
+                    <label for="fullname">Full Name</label>
+                    <input id="fullname" type="text" placeholder="Enter full name">
+                </div>
+                <div class="form-group">
+                    <label for="email">Email Address</label>
+                    <input id="email" type="email" placeholder="Enter email address">
+                </div>
+                <div class="form-group">
+                    <label for="role">User Role</label>
+                    <select id="role">
+                        <option>Select role</option>
+                        <option>Administrator</option>
+                        <option>Approver</option>
+                        <option>Staff</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                <label for="userstatus">Account Status</label>
+                <select id="userstatus">
+                    <option>Active</option>
+                    <option>Inactive</option>
+                </select>
+            </div>
+            </div><div class="form-actions">
+                <button type="button" class="primary-button">Save User</button>
+            </div>
+        </form>
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+</body>
+</html>

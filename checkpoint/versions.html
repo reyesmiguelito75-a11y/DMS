@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Version History - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p>
+            </div>
+        </div>
+        <p class="menu-title">MAIN MENU</p>
+        <a href="index.html"><span>▦</span> Dashboard</a>
+        <a href="documents.html"><span>▤</span> Documents</a>
+        <a href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a class="active" href="versions.html"><span>↻</span> Version History</a>
+        <a href="archive.html"><span>▣</span> Archive</a>
+        <a href="users.html"><span>♙</span> Users</a>
+        <div class="account">
+            <div class="avatar">A</div>
+            <div><strong>Administrator</strong>
+                <p>System Account</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="top-bar">
+            <div><p class="breadcrumb">Pages / Version History</p>
+                <h1>Version History</h1>
+            </div>
+            <a class="upload-button" href="upload.html">＋ Upload New Version</a>
+        </div>
+        <div class="content-box">
+            <div class="box-heading">
+                <div><h2>Document Versions</h2>
+                    <p>Check previous versions of a document</p>
+                </div>
+            </div>
+            <div class="filter-row">
+                <input type="text" placeholder="Search document name...">
+                <button type="button" class="secondary-button">Search</button>
+            </div>
+            <div class="table-container"><table>
+                <thead>
+                    <tr><th>DOCUMENT NAME</th>
+                    <th>VERSION</th>
+                    <th>UPLOADED BY</th>
+                    <th>DATE UPLOADED</th>
+                    <th>NOTES</th>
+                    <th>ACTION</th></tr>
+                </thead>
+                <tbody>
+                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
+                        <td><span class="version-tag">v2.0</span></td>
+                        <td>Juan Dela Cruz</td>
+                        <td>Nov 3, 2026</td>
+                        <td>Updated project details</td>
+                        <td><a class="table-link" href="#">View</a></td>
+                    </tr>
+                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
+                        <td><span class="version-tag">v1.0</span></td>
+                        <td>Juan Dela Cruz</td>
+                        <td>Oct 28, 2026</td>
+                        <td>First upload</td>
+                        <td><a class="table-link" href="#">View</a></td>
+                    </tr>
+                    <tr><td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
+                        <td><span class="version-tag">v2.0</span></td>
+                        <td>Maria Santos</td>
+                        <td>Nov 2, 2026</td>
+                        <td>Added attendance list</td>
+                        <td><a class="table-link" href="#">View</a></td>
+                    </tr>
+                    <tr><td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
+                        <td><span class="version-tag">v1.0</span></td>
+                        <td>Maria Santos</td>
+                        <td>Oct 25, 2026</td>
+                        <td>First upload</td>
+                        <td><a class="table-link" href="#">View</a></td>
+                    </tr>
+                </tbody>
+            </table></div>
+        </div>
+        <div class="info-strip">
+            <strong>Reminder</strong>
+            <span>Each new upload can be saved as a new version so previous files remain available for reference.</span>
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+</body>
+</html>

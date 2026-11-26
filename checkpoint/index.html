@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+    <!-- Sidebai -->
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div>
+                <h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p>
+            </div>
+        </div>
+
+        <p class="menu-title">MAIN MENU</p>
+        <a class="active" href="index.html"><span>▦</span> Dashboard</a>
+        <a href="documents.html"><span>▤</span> Documents</a>
+        <a href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a href="versions.html"><span>↻</span> Version History</a>
+        <a href="archive.html"><span>▣</span> Archive</a>
+        <a href="users.html"><span>♙</span> Users</a>
+
+        <div class="account">
+            <div class="avatar">A</div>
+            <div>
+                <strong>Administrator</strong>
+                <p>System Account</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Content -->
+    <div class="main-content">
+        <div class="top-bar">
+            <div>
+                <p class="breadcrumb">Pages / Dashboard</p>
+                <h1>Dashboard</h1>
+            </div>
+            <a class="upload-button" href="upload.html">＋ Upload Document</a>
+        </div>
+
+        <div class="welcome-box">
+            <div>
+                <h2>Welcome back, Administrator!</h2>
+                <p>Here's an overview of the documents in your system.</p>
+            </div>
+            <div class="welcome-date">DOCUMENT MANAGEMENT SYSTEM</div>
+        </div>
+
+        <!-- Summary sa dashboard. overview to-->
+        <div class="section-heading">
+            <h2>Overview</h2>
+            <p>Document summary</p>
+        </div>
+        <div class="cards">
+            <div class="card blue-card">
+                <div class="card-top">
+                    <span>Total Documents</span>
+                    <span class="card-icon">▤</span>
+                </div>
+                <h2>128</h2>
+                <p>Documents in the system</p>
+            </div>
+            <div class="card orange-card">
+                <div class="card-top">
+                    <span>Pending Approval</span>
+                    <span class="card-icon">◷</span>
+                </div>
+                <h2>12</h2>
+                <p>Waiting for review</p>
+            </div>
+            <div class="card green-card">
+                <div class="card-top">
+                    <span>Approved</span>
+                    <span class="card-icon">✓</span>
+                </div>
+                <h2>96</h2>
+                <p>Successfully approved</p>
+            </div>
+            <div class="card gray-card">
+                <div class="card-top">
+                    <span>Archived</span>
+                    <span class="card-icon">▣</span>
+                </div>
+                <h2>20</h2>
+                <p>Stored for reference</p>
+            </div>
+        </div>
+
+        <!-- recent shi na naadd sa database -->
+        <div class="content-box">
+            <div class="box-heading">
+                <div>
+                    <h2>Recent Documents</h2>
+                    <p>Latest files uploaded to the system</p>
+                </div>
+                <a href="documents.html">View All Documents →</a>
+            </div>
+
+            <div class="table-container">
+                <table>
+                    <thead>
+                        <tr>
+                            <th>DOCUMENT NAME</th>
+                            <th>UPLOADED BY</th>
+                            <th>DATE UPLOADED</th>
+                            <th>STATUS</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
+                            <td>Juan Dela Cruz</td>
+                            <td>Nov 3, 2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
+                            <td>Maria Santos</td>
+                            <td>Nov 2, 2026</td>
+                            <td><span class="status approved">Approved</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="file-icon pdf">PDF</span> School Forms.pdf</td>
+                            <td>Pedro Reyes</td>
+                            <td>Nov 1, 2026</td>
+                            <td><span class="status approved">Approved</span></td>
+                        </tr>
+                        <tr>
+                            <td><span class="file-icon doc">DOC</span> Activity Report.docx</td>
+                            <td>Ana Garcia</td>
+                            <td>Oct 30, 2026</td>
+                            <td><span class="status pending">Pending</span></td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+
+        <!-- sa pinaka baba to, parang shortcut sha nard -->
+        <div class="content-box quick-box">
+            <div class="box-heading">
+                <div>
+                    <h2>Quick Actions</h2>
+                    <p>Common tasks you can do in the system</p>
+                </div>
+            </div>
+            <div class="quick-links">
+                <a href="upload.html"><span>＋</span><div><strong>Upload a Document</strong><small>Add a new file</small></div></a>
+                <a href="approvals.html"><span>✓</span><div><strong>Review Approvals</strong><small>Check pending requests</small></div></a>
+                <a href="archive.html"><span>▣</span><div><strong>View Archive</strong><small>See stored documents</small></div></a>
+            </div>
+        </div>
+
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+
+</body>
+</html>

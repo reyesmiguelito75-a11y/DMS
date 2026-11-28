@@ -284,35 +284,6 @@ body {
     margin: 0;
 }
 
-/* Recent documents table */
-.content-box {
-    background-color: white;
-    padding: 21px;
-    border-radius: 7px;
-    border: 1px solid #e3e7ee;
-    box-shadow: 0 2px 5px rgba(30, 50, 80, 0.04);
-    margin-bottom: 21px;
-}
-
-.box-heading {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 17px;
-}
-
-.box-heading h2 {
-    color: #263957;
-    font-size: 17px;
-    margin: 0 0 6px;
-}
-
-.box-heading p {
-    color: #8993a3;
-    font-size: 12px;
-    margin: 0;
-}
-
 .box-heading a {
     color: #2f5597;
     text-decoration: none;
@@ -322,10 +293,6 @@ body {
 
 .box-heading a:hover {
     text-decoration: underline;
-}
-
-.table-container {
-    overflow-x: auto;
 }
 
 table {
@@ -864,18 +831,341 @@ textarea:focus {
     }
 }
 
-.success-message {
-    background-color: #d4edda;
-    color: #155724;
+.signup-page-button {
+    display: block;
+    width: 100%;
+    box-sizing: border-box;
+    padding: 11px;
+    background-color: white;
+    color: #2f5597;
+    border: 1px solid #2f5597;
+    border-radius: 5px;
+    text-align: center;
+    text-decoration: none;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.return-btn {
+    display: inline-block;
+    padding: 8px 15px;
+    margin-bottom: 15px;
+    background-color: #6c757d;
+    color: white;
+    text-decoration: none;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.return-btn:hover {
+    background-color: #555;
+}
+/* SIGNUP PAGE */
+
+.signup-page {
+    background-color: #f1f4f9;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+}
+
+.signup-container {
+    width: 100%;
+    max-width: 430px;
+}
+
+.signup-header {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.signup-header h1 {
+    color: #1e3a8a;
+    font-size: 30px;
+    margin-bottom: 5px;
+}
+
+.signup-header p {
+    color: #64748b;
+    font-size: 14px;
+}
+
+.signup-card {
+    background-color: white;
+    padding: 30px;
+    border-radius: 12px;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+}
+
+.signup-card h2 {
+    color: #1e293b;
+    text-align: center;
+    margin-bottom: 8px;
+}
+
+.signup-subtitle {
+    color: #64748b;
+    text-align: center;
+    font-size: 14px;
+    margin-bottom: 25px;
+}
+
+.signup-form-group {
+    margin-bottom: 18px;
+}
+
+.signup-form-group label {
+    display: block;
+    color: #334155;
+    font-weight: bold;
+    font-size: 14px;
+    margin-bottom: 7px;
+}
+
+.signup-form-group input {
+    width: 100%;
+    padding: 11px;
+    border: 1px solid #cbd5e1;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+    outline: none;
+}
+
+.signup-form-group input:focus {
+    border-color: #2563eb;
+}
+
+.signup-button {
+    width: 100%;
     padding: 12px;
+    background-color: #1e3a8a;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+    margin-top: 5px;
+}
+
+.signup-button:hover {
+    background-color: #172554;
+}
+
+.signup-login {
+    text-align: center;
+    color: #64748b;
+    font-size: 14px;
+    margin-top: 22px;
+}
+
+.signup-login a {
+    color: #2563eb;
+    font-weight: bold;
+    text-decoration: none;
+}
+
+.signup-login a:hover {
+    text-decoration: underline;
+}
+
+.signup-footer {
+    text-align: center;
+    color: #94a3b8;
+    font-size: 12px;
+    margin-top: 20px;
+}
+
+/* SIGNUP LINK ON LOGIN PAGE */
+
+.signup-link p {
+    color: #64748b;
+    font-size: 14px;
+    margin-bottom: 10px;
+}
+
+.signup-page-button:hover {
+    background-color: #f1f5f9;
+}
+
+/* DELETE USER BUTTON */
+.delete-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 12px;
+    font-family: Arial, sans-serif;
+}
+
+.delete-button:hover {
+    background-color: #b02a37;
+}
+
+/* PENDING REGISTRATION BUTTONS */
+.reject-button {
+    background-color: #dc3545;
+    color: white;
+    border: none;
+    padding: 10px 16px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.reject-button:hover {
+    background-color: #b02a37;
+}
+
+/* FIX DELETE BUTTON STYLE */
+button.delete-button {
+    background-color: #dc3545 !important;
+    color: white !important;
+    border: none !important;
+    padding: 10px 15px !important;
+    border-radius: 5px !important;
+    cursor: pointer;
+    font-size: 12px !important;
+    font-family: Arial, sans-serif !important;
+}
+
+button.delete-button:hover {
+    background-color: #b02a37 !important;
+}
+
+/* LOGIN PAGE */
+
+.login-page {
+    background-color: #f4f6fa;
+    min-height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 30px 15px;
+}
+
+.login-container {
+    width: 100%;
+    max-width: 420px;
+}
+
+.login-logo {
+    text-align: center;
+    margin-bottom: 25px;
+}
+
+.login-logo h2 {
+    margin: 10px 0 5px;
+    color: #303846;
+}
+
+.login-logo p {
+    font-size: 12px;
+    letter-spacing: 1px;
+    color: #7b8494;
+}
+
+.brand-icon {
+    width: 55px;
+    height: 55px;
+    background-color: #2563eb;
+    color: white;
+    font-size: 28px;
+    font-weight: bold;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto;
+}
+
+.login-box {
+    background-color: white;
+    padding: 35px;
+    border-radius: 7px;
+    border: 1px solid #e3e7ee;
+    box-shadow: 0 2px 8px rgba(30, 50, 80, 0.06);
+}
+
+.login-box h1 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.login-description {
+    color: #7b8494;
+    margin-bottom: 25px;
+}
+
+.login-input {
+    margin-bottom: 20px;
+}
+
+.login-input label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 600;
+}
+
+.login-input input {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #d5dbe5;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+.login-button {
+    width: 100%;
+    padding: 12px;
+    background-color: #2563eb;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    font-size: 15px;
+    cursor: pointer;
+}
+
+.login-button:hover {
+    background-color: #1d4ed8;
+}
+
+.login-error {
+    background-color: #fee2e2;
+    color: #b91c1c;
+    padding: 10px;
     border-radius: 5px;
     margin-bottom: 15px;
 }
 
-.error-message {
-    background-color: #f8d7da;
-    color: #721c24;
-    padding: 12px;
-    border-radius: 5px;
-    margin-bottom: 15px;
+.signup-link {
+    text-align: center;
+    margin-top: 20px;
+}
+
+.signup-link p {
+    color: #7b8494;
+    font-size: 14px;
+}
+
+.signup-page-button {
+    color: #2563eb;
+    text-decoration: none;
+    font-weight: 600;
+}
+
+.signup-page-button:hover {
+    text-decoration: underline;
+}
+
+.login-footer {
+    text-align: center;
+    color: #7b8494;
+    font-size: 12px;
+    margin-top: 25px;
 }

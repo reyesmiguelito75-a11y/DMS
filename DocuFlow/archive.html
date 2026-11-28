@@ -13,13 +13,17 @@
             <div><h2>DocuFlow</h2><p>DOCUMENT MANAGEMENT</p></div>
         </div>
         <p class="menu-title">MAIN MENU</p>
-        <a href="dashboard.php"><span>▦</span> Dashboard</a>
+        <a href="index.html"><span>▦</span> Dashboard</a>
         <a href="documents.html"><span>▤</span> Documents</a>
         <a href="upload.html"><span>＋</span> Upload Document</a>
         <a href="approvals.html"><span>✓</span> Approvals</a>
         <a href="versions.html"><span>↻</span> Version History</a>
         <a class="active" href="archive.html"><span>▣</span> Archive</a>
-        <a href="users.php"><span>♙</span> Users</a>
+        <a href="users.html"><span>♙</span> Users</a>
+        <a href="pending_users.html" id="pendingUsersLink" style="display: none;">
+            <span>◷</span> Pending Registrations
+        </a>
+        <a href="php/logout.php"><span>↪</span> Logout</a>
 
         <div class="account">
             <div class="avatar">A</div>
@@ -42,16 +46,28 @@
                 <div><h2>Archived Files</h2>
                     <p>Documents moved to archive</p>
                 </div>
-                <span class="record-count">3 sample records</span>
+                <span class="record-count" id="archiveCount">0 archived documents</span>
             </div>
+            
             <div class="filter-row">
-                <input type="text" placeholder="Search archived documents...">
-                <select><option>All Categories</option>
-                    <option>Reports</option>
-                    <option>Forms</option>
+                <input type="text"
+                    id="archiveSearchInput"
+                    placeholder="Search archived documents...">
+
+                <select id="archiveCategoryFilter">
+                    <option value="All Categories">All Categories</option>
+                    <option value="Reports">Reports</option>
+                    <option value="Forms">Forms</option>
+                    <option value="Others">Others</option>
                 </select>
-                    <button type="button" class="secondary-button">Search</button>
+
+                <button type="button"
+                        class="secondary-button"
+                        id="archiveSearchButton">
+                    Search
+                </button>
             </div>
+
             <div class="table-container">
                 <table>
                 <thead><tr><th>DOCUMENT NAME</th>
@@ -59,32 +75,186 @@
                     <th>DATE ARCHIVED</th><th>REASON</th>
                     <th>ACTION</th></tr>
                 </thead>
-                <tbody>
-                    <tr><td><span class="file-icon pdf">PDF</span> Old Activity Plan.pdf</td>
-                        <td>Reports</td>
-                        <td>Administrator</td>
-                        <td>Oct 20, 2026</td>
-                        <td>Old record</td>
-                        <td><button type="button" class="small-button">Restore</button>
-                    </td></tr>
-                    <tr><td><span class="file-icon doc">DOC</span> Previous Guidelines.docx</td>
-                        <td>Forms</td>
-                        <td>Maria Santos</td>
-                        <td>Oct 15, 2026</td>
-                        <td>Replaced file</td>
-                        <td><button type="button" class="small-button">Restore</button>
-                    </td></tr>
-                    <tr><td><span class="file-icon pdf">PDF</span> 2025 Report.pdf</td>
-                        <td>Reports</td>
-                        <td>Administrator</td>
-                        <td>Oct 10, 2026</td>
-                        <td>Completed year</td>
-                        <td><button type="button" class="small-button">Restore</button>
-                    </td></tr>
+                <tbody id="archiveTable">
                 </tbody>
             </table></div>
         </div>
         <p class="footer">© 2026 DocuFlow | Document Management System</p>
     </div>
+
+<script>
+
+
+let allArchivedDocuments = [];
+
+fetch("php/archived_documents.php", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Failed to load archived documents");
+    }
+
+    return response.json();
+})
+.then(data => {
+    allArchivedDocuments = data;
+    displayArchivedDocuments(allArchivedDocuments);
+})
+.catch(error => {
+    console.error("Archived documents error:", error);
+});
+
+// Display archived documents
+function displayArchivedDocuments(documents) {
+
+document.getElementById("archiveSearchButton").addEventListener("click", function() {
+
+    const searchText = document.getElementById("archiveSearchInput")
+        .value.toLowerCase();
+
+    const category = document.getElementById("archiveCategoryFilter").value;
+
+    const filteredDocuments = allArchivedDocuments.filter(archiveData => {
+
+        const matchesSearch =
+            archiveData.title.toLowerCase().includes(searchText) ||
+            archiveData.reason.toLowerCase().includes(searchText) ||
+            archiveData.full_name.toLowerCase().includes(searchText);
+
+        const matchesCategory =
+            category === "All Categories" ||
+            archiveData.category === category;
+
+        return matchesSearch && matchesCategory;
+    });
+
+    displayArchivedDocuments(filteredDocuments);
+});
+
+    const archiveTable = document.getElementById("archiveTable");
+    const archiveCount = document.getElementById("archiveCount");
+
+    archiveTable.innerHTML = "";
+
+    archiveCount.textContent = documents.length +
+        (documents.length === 1
+            ? " archived document"
+            : " archived documents");
+
+    if (documents.length === 0) {
+        const row = document.createElement("tr");
+        const cell = document.createElement("td");
+
+        cell.colSpan = 6;
+        cell.textContent = "No archived documents found.";
+        cell.style.textAlign = "center";
+
+        row.appendChild(cell);
+        archiveTable.appendChild(row);
+        return;
+    }
+
+    documents.forEach(archiveData => {
+        const row = document.createElement("tr");
+
+        const titleCell = document.createElement("td");
+        titleCell.textContent = archiveData.title;
+
+        const categoryCell = document.createElement("td");
+        categoryCell.textContent = archiveData.category || "—";
+
+        const archivedByCell = document.createElement("td");
+        archivedByCell.textContent = archiveData.full_name;
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = archiveData.archived_at;
+
+        const reasonCell = document.createElement("td");
+        reasonCell.textContent = archiveData.reason;
+
+        const actionCell = document.createElement("td");
+
+        const restoreButton = document.createElement("button");
+        restoreButton.type = "button";
+        restoreButton.className = "restoreButton";
+        restoreButton.dataset.archiveId = archiveData.archive_id;
+        restoreButton.textContent = "Restore";
+
+        actionCell.appendChild(restoreButton);
+
+        row.appendChild(titleCell);
+        row.appendChild(categoryCell);
+        row.appendChild(archivedByCell);
+        row.appendChild(dateCell);
+        row.appendChild(reasonCell);
+        row.appendChild(actionCell);
+
+        archiveTable.appendChild(row);
+    });
+}
+
+document.getElementById("archiveTable").addEventListener("click", function(event) {
+
+    if (event.target.classList.contains("restoreButton")) {
+
+        const archiveId = event.target.dataset.archiveId;
+
+        const confirmRestore = confirm(
+            "Are you sure you want to restore this document?"
+        );
+
+        if (!confirmRestore) {
+            return;
+        }
+
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "php/restore_process.php";
+
+        const archiveInput = document.createElement("input");
+        archiveInput.type = "hidden";
+        archiveInput.name = "archive_id";
+        archiveInput.value = archiveId;
+
+        form.appendChild(archiveInput);
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+});
+
+</script>
+
+<script>
+    document.body.style.visibility = "hidden";
+
+    fetch("php/auth_check.php", {
+        credentials: "same-origin",
+        cache: "no-store"
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (data.logged_in) {
+
+            // Show Pending Registrations only to Admin
+            if (data.role === "Admin") {
+                document.getElementById("pendingUsersLink").style.display = "block";
+            }
+
+            document.body.style.visibility = "visible";
+
+        } else {
+            window.location.replace("login.html");
+        }
+
+    })
+    .catch(error => {
+        window.location.replace("login.html");
+    });
+</script>
+
 </body>
 </html>

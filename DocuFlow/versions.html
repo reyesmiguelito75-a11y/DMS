@@ -15,13 +15,17 @@
             </div>
         </div>
         <p class="menu-title">MAIN MENU</p>
-        <a href="dashboard.php"><span>▦</span> Dashboard</a>
+        <a href="index.html"><span>▦</span> Dashboard</a>
         <a href="documents.html"><span>▤</span> Documents</a>
         <a href="upload.html"><span>＋</span> Upload Document</a>
         <a href="approvals.html"><span>✓</span> Approvals</a>
         <a class="active" href="versions.html"><span>↻</span> Version History</a>
         <a href="archive.html"><span>▣</span> Archive</a>
-        <a href="users.php"><span>♙</span> Users</a>
+        <a href="users.html"><span>♙</span> Users</a>
+        <a href="pending_users.html" id="pendingUsersLink" style="display: none;">
+            <span>◷</span> Pending Registrations
+        </a>
+        <a href="php/logout.php"><span>↪</span> Logout</a>
         <div class="account">
             <div class="avatar">A</div>
             <div><strong>Administrator</strong>
@@ -34,7 +38,7 @@
             <div><p class="breadcrumb">Pages / Version History</p>
                 <h1>Version History</h1>
             </div>
-            <a class="upload-button" href="upload.html">＋ Upload New Version</a>
+            <a class="upload-button" href="new_version.html">＋ Upload New Version</a>
         </div>
         <div class="content-box">
             <div class="box-heading">
@@ -55,34 +59,9 @@
                     <th>NOTES</th>
                     <th>ACTION</th></tr>
                 </thead>
-                <tbody>
-                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
-                        <td><span class="version-tag">v2.0</span></td>
-                        <td>Juan Dela Cruz</td>
-                        <td>Nov 3, 2026</td>
-                        <td>Updated project details</td>
-                        <td><a class="table-link" href="#">View</a></td>
-                    </tr>
-                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
-                        <td><span class="version-tag">v1.0</span></td>
-                        <td>Juan Dela Cruz</td>
-                        <td>Oct 28, 2026</td>
-                        <td>First upload</td>
-                        <td><a class="table-link" href="#">View</a></td>
-                    </tr>
-                    <tr><td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
-                        <td><span class="version-tag">v2.0</span></td>
-                        <td>Maria Santos</td>
-                        <td>Nov 2, 2026</td>
-                        <td>Added attendance list</td>
-                        <td><a class="table-link" href="#">View</a></td>
-                    </tr>
-                    <tr><td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
-                        <td><span class="version-tag">v1.0</span></td>
-                        <td>Maria Santos</td>
-                        <td>Oct 25, 2026</td>
-                        <td>First upload</td>
-                        <td><a class="table-link" href="#">View</a></td>
+                <tbody id="versionsTable">
+                    <tr>
+                        <td colspan="6">Loading document versions...</td>
                     </tr>
                 </tbody>
             </table></div>
@@ -93,5 +72,88 @@
         </div>
         <p class="footer">© 2026 DocuFlow | Document Management System</p>
     </div>
+
+<script>
+fetch("php/all_versions.php", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => response.json())
+.then(data => {
+
+    const table = document.getElementById("versionsTable");
+
+    table.innerHTML = "";
+
+    if (data.length === 0) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="6">No document versions found.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    data.forEach(version => {
+
+        const row = document.createElement("tr");
+
+        row.innerHTML = `
+            <td>${version.title}</td>
+            <td>${version.version_number}</td>
+            <td>${version.full_name}</td>
+            <td>${version.uploaded_at}</td>
+            <td>${version.notes || "No notes"}</td>
+            <td>
+                <a href="php/version_file.php?id=${version.version_id}" target="_blank">View</a>
+                |
+                <a href="php/version_file.php?id=${version.version_id}&download=1">Download</a>
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+
+})
+.catch(error => {
+    console.error("Version History Error:", error);
+
+    document.getElementById("versionsTable").innerHTML = `
+        <tr>
+            <td colspan="6">Error loading document versions.</td>
+        </tr>
+    `;
+});
+</script>
+
+<script>
+    document.body.style.visibility = "hidden";
+
+    fetch("php/auth_check.php", {
+        credentials: "same-origin",
+        cache: "no-store"
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (data.logged_in) {
+
+            // Show Pending Registrations only to Admin
+            if (data.role === "Admin") {
+                document.getElementById("pendingUsersLink").style.display = "block";
+            }
+
+            document.body.style.visibility = "visible";
+
+        } else {
+            window.location.replace("login.html");
+        }
+
+    })
+    .catch(error => {
+        window.location.replace("login.html");
+    });
+</script>
+
 </body>
 </html>

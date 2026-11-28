@@ -15,13 +15,17 @@
             </div>
         </div>
         <p class="menu-title">MAIN MENU</p>
-        <a href="dashboard.php"><span>▦</span> Dashboard</a>
+        <a href="index.html"><span>▦</span> Dashboard</a>
         <a class="active" href="documents.html"><span>▤</span> Documents</a>
         <a href="upload.html"><span>＋</span> Upload Document</a>
         <a href="approvals.html"><span>✓</span> Approvals</a>
         <a href="versions.html"><span>↻</span> Version History</a>
         <a href="archive.html"><span>▣</span> Archive</a>
-        <a href="users.php"><span>♙</span> Users</a>
+        <a href="users.html"><span>♙</span> Users</a>
+        <a href="pending_users.html" id="pendingUsersLink" style="display: none;">
+            <span>◷</span> Pending Registrations
+        </a>
+          <a href="php/logout.php"><span>↪</span> Logout</a>
         <div class="account">
             <div class="avatar">A</div>
             <div><strong>Administrator</strong>
@@ -42,66 +46,213 @@
                 <div><h2>All Documents</h2>
                     <p>View and manage uploaded documents</p>
                 </div>
-                <span class="record-count">4 sample records</span>
+                <span class="record-count" id="documentsCount">Loading documents...</span>
             </div>
             <div class="filter-row">
-                <input type="text" placeholder="Search document name...">
-                <select>
+
+                <input type="text" id="searchInput" placeholder="Search document name...">
+                <select id="categoryFilter">
                     <option>All Categories</option>
                     <option>Reports</option>
                     <option>Forms</option>
                     <option>Proposals</option>
+                    <option>Others</option>
                 </select>
-                <select>
+                <select id="statusFilter">
                     <option>All Status</option>
                     <option>Pending</option>
                     <option>Approved</option>
                     <option>Rejected</option>
                 </select>
-                <button type="button" class="secondary-button">Search</button>
+                <button type="button" class="secondary-button" id="searchButton">Search</button>
             </div>
             <div class="table-container">
                 <table>
                 <thead>
                     <tr><th>DOCUMENT NAME</th>
-                    <th>CATEGORY</th>
+                    <th>CATEGORY</th> 
                     <th>UPLOADED BY</th>
                     <th>DATE UPLOADED</th>
                     <th>STATUS</th>
                     <th>ACTION</th></tr>
                 </thead>
-                <tbody>
-                    <tr><td><span class="file-icon pdf">PDF</span> Project Proposal.pdf</td>
-                        <td>Proposal</td>
-                        <td>Juan Dela Cruz</td>
-                        <td>Nov 3, 2026</td>
-                        <td><span class="status pending">Pending</span></td>
-                        <td><a class="table-link" href="versions.html">View</a>
-                    </td></tr>
-                    <tr><td><span class="file-icon doc">DOC</span> Meeting Minutes.docx</td>
-                        <td>Reports</td>
-                        <td>Maria Santos</td>
-                        <td>Nov 2, 2026</td>
-                        <td><span class="status approved">Approved</span></td>
-                        <td><a class="table-link" href="versions.html">View</a>
-                    </td></tr>
-                    <tr><td><span class="file-icon pdf">PDF</span> School Forms.pdf</td>
-                        <td>Forms</td><td>Pedro Reyes</td>
-                        <td>Nov 1, 2026</td>
-                        <td><span class="status approved">Approved</span></td>
-                        <td><a class="table-link" href="versions.html">View</a>
-                    </td></tr>
-                    <tr><td><span class="file-icon doc">DOC</span> Activity Report.docx</td>
-                        <td>Reports</td>
-                        <td>Ana Garcia</td>
-                        <td>Oct 30, 2026</td>
-                        <td><span class="status rejected">Rejected</span></td>
-                        <td><a class="table-link" href="versions.html">View</a>
-                    </td></tr>
+                <tbody id="documentsTable">
+                    <tr>
+                        <td colspan="6">Loading documents...</td>
+                    </tr>
                 </tbody>
             </table></div>
         </div>
         <p class="footer">© 2026 DocuFlow | Document Management System</p>
     </div>
+
+<script>
+document.body.style.visibility = "hidden";
+
+fetch("php/auth_check.php", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => response.json())
+.then(data => {
+
+    if (data.logged_in) {
+
+        if (data.role === "Admin") {
+            document.getElementById("pendingUsersLink").style.display = "block";
+        }
+
+        document.body.style.visibility = "visible";
+
+    } else {
+        window.location.replace("login.html");
+    }
+
+})
+.catch(error => {
+    window.location.replace("login.html");
+});
+</script>
+
+<script>
+let allDocuments = [];
+
+// Load documents from the database
+fetch("php/all_documents.php", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Failed to load documents.");
+    }
+
+    return response.json();
+})
+.then(documents => {
+    allDocuments = documents;
+    displayDocuments(allDocuments);
+})
+.catch(error => {
+    console.error("Documents error:", error);
+
+    document.getElementById("documentsTable").innerHTML = `
+        <tr>
+            <td colspan="6">Unable to load documents.</td>
+        </tr>
+    `;
+});
+
+// Display documents in the table
+function displayDocuments(documents) {
+    const table = document.getElementById("documentsTable");
+    const count = document.getElementById("documentsCount");
+
+    table.innerHTML = "";
+
+    count.textContent = documents.length +
+        (documents.length === 1 ? " document" : " documents");
+
+    if (documents.length === 0) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="6">No matching documents found.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    documents.forEach(doc => {
+        let row = document.createElement("tr");
+
+        let category = doc.category || "—";
+
+        row.innerHTML = `
+            <td>${doc.title}</td>
+            <td>${category}</td>
+            <td>${doc.full_name}</td>
+            <td>${doc.uploaded_at}</td>
+            <td>
+                <span class="status ${doc.status.toLowerCase()}">
+                    ${doc.status}
+                </span>
+            </td>
+            <td>
+                <a href="php/document_file.php?id=${doc.document_id}" target="_blank">View</a>
+                    |
+                <a href="php/document_file.php?id=${doc.document_id}&download=1">Download</a>
+                    |
+                <button type="button"
+                    class="archiveButton"
+                    data-document-id="${doc.document_id}">
+                    Archive
+                </button>
+            </td>
+        `;
+
+        table.appendChild(row);
+    });
+}
+
+document.getElementById("documentsTable").addEventListener("click", function(event) {
+
+    if (event.target.classList.contains("archiveButton")) {
+
+        const documentId = event.target.dataset.documentId;
+
+        const reason = prompt("Enter the reason for archiving this document:");
+
+        if (reason === null || reason.trim() === "") {
+            alert("Archive cancelled. Please provide a reason.");
+            return;
+        }
+
+        const form = document.createElement("form");
+        form.method = "POST";
+        form.action = "php/archive_process.php";
+
+        const documentInput = document.createElement("input");
+        documentInput.type = "hidden";
+        documentInput.name = "document_id";
+        documentInput.value = documentId;
+
+        const reasonInput = document.createElement("input");
+        reasonInput.type = "hidden";
+        reasonInput.name = "reason";
+        reasonInput.value = reason.trim();
+
+        form.appendChild(documentInput);
+        form.appendChild(reasonInput);
+
+        document.body.appendChild(form);
+        form.submit();
+    }
+
+});
+
+// Search and filter documents
+document.getElementById("searchButton").addEventListener("click", function() {
+    const searchText = document.getElementById("searchInput").value.toLowerCase();
+    const category = document.getElementById("categoryFilter").value;
+    const status = document.getElementById("statusFilter").value;
+
+    const filteredDocuments = allDocuments.filter(doc => {
+        const matchesSearch =
+            doc.title.toLowerCase().includes(searchText);
+
+        const matchesCategory =
+            category === "All Categories" || doc.category === category;
+
+        const matchesStatus =
+            status === "All Status" || doc.status === status;
+
+        return matchesSearch && matchesCategory && matchesStatus;
+    });
+
+    displayDocuments(filteredDocuments);
+});
+</script>
+
+
 </body>
 </html>

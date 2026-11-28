@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sign Up - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body class="signup-page">
+
+    <div class="signup-container">
+
+        <div class="signup-header">
+            <h1>DocuFlow</h1>
+            <p>Document Management System</p>
+        </div>
+
+        <div class="signup-card">
+            <h2>Create an Account</h2>
+            <p class="signup-subtitle">Register to access DocuFlow.</p>
+
+            <form action="php/signup_process.php" method="POST">
+
+                <div class="signup-form-group">
+                    <label for="full_name">Full Name</label>
+                    <input type="text" id="full_name" name="full_name"
+                           placeholder="Enter your full name" required>
+                </div>
+
+                <div class="signup-form-group">
+                    <label for="email">Email Address</label>
+                    <input type="email" id="email" name="email"
+                           placeholder="Enter your email address" required>
+                </div>
+
+                <div class="signup-form-group">
+                    <label for="username">Username</label>
+                    <input type="text" id="username" name="username"
+                           placeholder="Choose a username" required>
+                </div>
+
+                <div class="signup-form-group">
+                    <label for="password">Password</label>
+                    <input type="password" id="password" name="password"
+                           placeholder="Create a password" required>
+                </div>
+
+                <button type="submit" class="signup-button">Register</button>
+
+            </form>
+
+            <p class="signup-login">
+                Already have an account?
+                <a href="login.html">Log In</a>
+            </p>
+        </div>
+
+        <p class="signup-footer">© 2026 DocuFlow</p>
+
+    </div>
+
+</body>
+</html>

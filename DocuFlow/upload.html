@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Upload Document - DocuFlow</title>
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p>
+            </div>
+        </div>
+        <p class="menu-title">MAIN MENU</p>
+        <a href="index.html"><span>▦</span> Dashboard</a>
+        <a href="documents.html"><span>▤</span> Documents</a>
+        <a class="active" href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a href="versions.html"><span>↻</span> Version History</a>
+        <a href="archive.html"><span>▣</span> Archive</a>
+        <a href="users.html"><span>♙</span> Users</a>
+        <a href="pending_users.html" id="pendingUsersLink" style="display: none;">
+            <span>◷</span> Pending Registrations
+        </a>
+        <a href="php/logout.php"><span>↪</span> Logout</a>
+        <div class="account"><div class="avatar">A</div>
+        <div><strong>Administrator</strong>
+            <p>System Account</p>
+        </div>
+    </div>
+    </div>
+    <div class="main-content">
+        <div class="top-bar">
+            <div><p class="breadcrumb">Pages / Upload Document</p>
+                <h1>Upload Document</h1>
+            </div>
+            <a class="upload-button" href="documents.html">View Documents</a>
+        </div>
+        <div class="content-box form-box">
+            <div class="box-heading">
+                <div><h2>Document Information</h2>
+                    <p>Fill in the details below to add a document</p>
+                </div>
+            </div>
+            <form action="php/upload_process.php" method="POST" enctype="multipart/form-data">
+                <div class="form-grid">
+                    <div class="form-group full-width">
+                        <label for="docname">Document Name</label>
+                        <input type="text" id="docname" name="title" placeholder="Enter document name" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="category">Category</label>
+                        <select id="category" name="category">
+                            <option value="">Select category</option>
+                            <option>Reports</option>
+                            <option>Forms</option>
+                            <option>Proposals</option>
+                            <option>Others</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="department">Department</label>
+                        <input type="text" id="department" name="department" placeholder="Enter department">
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="description">Description</label>
+                        <textarea id="description" name="description" rows="4" placeholder="Write a short description"></textarea>
+                    </div>
+                    <div class="form-group full-width">
+                        <label for="file">Choose File</label>
+                        <input class="file-input" type="file" id="file" name="document" required>
+                        <small class="help-text">Allowed file types will be set during PHP development.</small>
+                    </div>
+                </div>
+                <div class="form-actions">
+                    <a class="secondary-button" href="documents.html">Cancel</a>
+                    <button class="primary-button" type="submit">Submit Document</button>
+                </div>
+            </form>
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+
+<script>
+    document.body.style.visibility = "hidden";
+
+    fetch("php/auth_check.php", {
+        credentials: "same-origin",
+        cache: "no-store"
+    })
+    .then(response => response.json())
+    .then(data => {
+
+        if (data.logged_in) {
+
+            // Show Pending Registrations only to Admin
+            if (data.role === "Admin") {
+                document.getElementById("pendingUsersLink").style.display = "block";
+            }
+
+            document.body.style.visibility = "visible";
+
+        } else {
+            window.location.replace("login.html");
+        }
+
+    })
+    .catch(error => {
+        window.location.replace("login.html");
+    });
+</script>
+
+</body>
+</html>

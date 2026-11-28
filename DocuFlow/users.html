@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Users - DocuFlow</title><link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <div class="sidebar">
+        <div class="brand">
+            <div class="brand-icon">D</div>
+            <div><h2>DocuFlow</h2>
+                <p>DOCUMENT MANAGEMENT</p>
+            </div>
+        </div>
+        <p class="menu-title">MAIN MENU</p>
+        <a href="index.html"><span>▦</span> Dashboard</a>
+        <a href="documents.html"><span>▤</span> Documents</a>
+        <a href="upload.html"><span>＋</span> Upload Document</a>
+        <a href="approvals.html"><span>✓</span> Approvals</a>
+        <a href="versions.html"><span>↻</span> Version History</a>
+        
+        <a href="archive.html"><span>▣</span> Archive</a>
+        <a class="active" href="users.html"><span>♙</span> Users</a>
+        <a href="pending_users.html" id="pendingUsersLink" style="display: none;"><span>◷</span> Pending Registrations</a>
+        <a href="php/logout.php"><span>↪</span> Logout</a>
+        <div class="account">
+            <div class="avatar">A</div>
+            <div><strong>Administrator</strong>
+                <p>System Account</p>
+            </div>
+        </div>
+    </div>
+    <div class="main-content">
+        <div class="top-bar">
+            <div><p class="breadcrumb">Pages / Users</p>
+                <h1>User Management</h1>
+            </div>
+            <a class="upload-button" href="#add-user">＋ Add User</a>
+        </div>
+        <div class="content-box">
+            <div class="box-heading">
+                <div><h2>System Users</h2>
+                    <p>View the people who can access DocuFlow</p>
+                </div>
+                <span class="record-count" id="usersCount">0 users</span>
+
+            </div>
+            <div id="userMessage" style="display: none; padding: 12px; margin-bottom: 15px; border-radius: 5px;"></div>
+            <div class="filter-row">
+                <input type="text"
+                    id="userSearchInput"
+                    placeholder="Search user name or username...">
+
+                <select id="userRoleFilter">
+                    <option value="All Roles">All Roles</option>
+                    <option value="Admin">Admin</option>
+                    <option value="Approver">Approver</option>
+                    <option value="User">User</option>
+                </select>
+                <select id="userStatusFilter">
+                    <option value="All Status">All Status</option>
+                    <option value="Active">Active</option>
+                    <option value="Inactive">Inactive</option>
+                    <option value="Pending">Pending</option>
+                    <option value="Rejected">Rejected</option>
+                </select>
+
+                <button type="button"
+                        class="secondary-button"
+                        id="userSearchButton">
+                    Search
+                </button>
+            </div>
+
+            <div class="table-container"><table>
+                <thead><tr>
+                    <th>NAME</th>
+                    <th>USERNAME</th>
+                    <th>ROLE</th>
+                    <th>ACCOUNT STATUS</th>
+                    <th>DATE CREATED</th>
+                    <th>ACTION</th>
+                </tr></thead>
+
+                <tbody id="usersTable">
+                </tbody>
+
+            </table></div>
+        </div>
+        <div class="content-box form-box" id="add-user">
+
+        <div class="content-box form-box" id="edit-user" style="display: none;">
+            <div class="box-heading">
+                <div>
+                    <h2>Edit User</h2>
+                    <p>Update the selected user's information</p>
+                </div>
+            </div>
+
+            <form action="php/update_user.php" method="POST">
+
+                <input type="hidden" id="edit_user_id" name="user_id">
+
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="edit_fullname">Full Name</label>
+                        <input type="text" id="edit_fullname"
+                            name="full_name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_email">Email Address</label>
+                        <input type="email" id="edit_email"
+                            name="email" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_username">Username</label>
+                        <input type="text" id="edit_username"
+                            name="username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_role">User Role</label>
+                        <select id="edit_role" name="role" required>
+                            <option value="Admin">Admin</option>
+                            <option value="Approver">Approver</option>
+                            <option value="User">User</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="edit_status">Account Status</label>
+                        <select id="edit_status" name="status" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                            <option value="Pending">Pending</option>
+                            <option value="Rejected">Rejected</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">
+                        Save Changes
+                    </button>
+
+                    <button type="button" class="secondary-button"
+                        onclick="document.getElementById('edit-user').style.display='none'">
+                        Cancel
+                    </button>
+                </div>
+
+            </form>
+        </div>
+
+            <div class="box-heading">
+                <div><h2>Add New User</h2>
+                    <p>Enter the details of the new system user</p>
+                </div>
+            </div>
+            
+            <form action="php/add_user.php" method="POST">
+                <div class="form-grid">
+
+                    <div class="form-group">
+                        <label for="fullname">Full Name</label>
+                        <input id="fullname" name="full_name" type="text"
+                            placeholder="Enter full name" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="email">Email Address</label>
+                        <input id="email" name="email" type="email"
+                            placeholder="Enter email address" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newusername">Username</label>
+                        <input id="newusername" name="username" type="text"
+                            placeholder="Enter username" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="newpassword">Password</label>
+                        <input id="newpassword" name="password" type="password"
+                            placeholder="Enter password" required>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">User Role</label>
+                        <select id="role" name="role" required>
+                            <option value="">Select role</option>
+                            <option value="Admin">Admin</option>
+                            <option value="Approver">Approver</option>
+                            <option value="User">User</option>
+                        </select>
+                    </div>
+
+                    <div class="form-group">
+                        <label for="userstatus">Account Status</label>
+                        <select id="userstatus" name="status" required>
+                            <option value="Active">Active</option>
+                            <option value="Inactive">Inactive</option>
+                        </select>
+                    </div>
+
+                </div>
+
+                <div class="form-actions">
+                    <button type="submit" class="primary-button">Save User</button>
+                </div>
+            </form>
+
+        </div>
+        <p class="footer">© 2026 DocuFlow | Document Management System</p>
+    </div>
+
+<script>
+document.body.style.visibility = "hidden";
+
+// Check if the logged-in user is an administrator
+fetch("php/auth_check.php", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => response.json())
+.then(data => {
+
+    if (data.logged_in && data.role === "Admin") {
+
+    // Show Pending Registrations for Admin
+    document.getElementById("pendingUsersLink").style.display = "block";
+
+    document.body.style.visibility = "visible";
+
+    } else {
+    window.location.replace("index.html");
+    }
+
+})
+.catch(error => {
+    window.location.replace("login.html");
+});
+
+// Display user creation messages
+const urlParams = new URLSearchParams(window.location.search);
+const message = urlParams.get("message");
+const messageBox = document.getElementById("userMessage");
+
+if (message) {
+    messageBox.style.display = "block";
+
+    if (message === "success") {
+        messageBox.textContent = "User added successfully!";
+        messageBox.style.backgroundColor = "#d4edda";
+        messageBox.style.color = "#155724";
+    }
+    else if (message === "updated") {
+    messageBox.textContent = "User updated successfully!";
+    messageBox.style.backgroundColor = "#d4edda";
+    messageBox.style.color = "#155724";
+    }
+    else if (message === "duplicate") {
+        messageBox.textContent = "Username or email already exists.";
+        messageBox.style.backgroundColor = "#f8d7da";
+        messageBox.style.color = "#721c24";
+    }
+    else {
+        messageBox.textContent = "Failed to add user.";
+        messageBox.style.backgroundColor = "#f8d7da";
+        messageBox.style.color = "#721c24";
+    }
+
+    // Remove message from URL
+    window.history.replaceState({}, document.title, window.location.pathname);
+}
+let allUsers = [];
+
+// Load users from the database
+fetch("php/all_users.php", {
+    credentials: "same-origin",
+    cache: "no-store"
+})
+.then(response => {
+    if (!response.ok) {
+        throw new Error("Failed to load users.");
+    }
+
+    return response.json();
+})
+.then(users => {
+    allUsers = users;
+    displayUsers(allUsers);
+})
+.catch(error => {
+    console.error("Users error:", error);
+
+    document.getElementById("usersTable").innerHTML = `
+        <tr>
+            <td colspan="6">Unable to load users.</td>
+        </tr>
+    `;
+});
+
+// Display users in the table
+function displayUsers(users) {
+    const table = document.getElementById("usersTable");
+    const count = document.getElementById("usersCount");
+
+    table.innerHTML = "";
+
+    count.textContent = users.length +
+        (users.length === 1 ? " user" : " users");
+
+    if (users.length === 0) {
+        table.innerHTML = `
+            <tr>
+                <td colspan="6">No users found.</td>
+            </tr>
+        `;
+        return;
+    }
+
+    users.forEach(user => {
+        const row = document.createElement("tr");
+
+        const nameCell = document.createElement("td");
+        const userCell = document.createElement("div");
+        userCell.className = "user-cell";
+
+        const avatar = document.createElement("span");
+        avatar.className = "user-avatar";
+        avatar.textContent = user.full_name.charAt(0).toUpperCase();
+
+        userCell.appendChild(avatar);
+        userCell.appendChild(document.createTextNode(" " + user.full_name));
+        nameCell.appendChild(userCell);
+
+        const usernameCell = document.createElement("td");
+        usernameCell.textContent = user.username;
+
+        const roleCell = document.createElement("td");
+        roleCell.textContent = user.role;
+
+        // Account status
+        const statusCell = document.createElement("td");
+        statusCell.textContent = user.status;
+
+        const dateCell = document.createElement("td");
+        dateCell.textContent = user.created_at;
+
+        const actionCell = document.createElement("td");
+
+        const editButton = document.createElement("button");
+        editButton.textContent = "Edit";
+        editButton.className = "secondary-button";
+
+        editButton.addEventListener("click", function () {
+
+            // Get the selected user's information
+            document.getElementById("edit_user_id").value = user.user_id;
+            document.getElementById("edit_fullname").value = user.full_name;
+            document.getElementById("edit_email").value = user.email || "";
+            document.getElementById("edit_username").value = user.username;
+            document.getElementById("edit_role").value = user.role;
+            document.getElementById("edit_status").value = user.status;
+
+            // Show the Edit User form
+            document.getElementById("edit-user").style.display = "block";
+
+            // Scroll to the form
+            document.getElementById("edit-user").scrollIntoView({
+                behavior: "smooth"
+            });
+
+});
+// Create Delete button
+const deleteButton = document.createElement("button");
+deleteButton.textContent = "Delete";
+deleteButton.className = "delete-button";
+
+// Set Delete button appearance directly
+deleteButton.style.backgroundColor = "#dc3545";
+deleteButton.style.color = "white";
+deleteButton.style.border = "none";
+deleteButton.style.padding = "10px 15px";
+deleteButton.style.borderRadius = "5px";
+deleteButton.style.cursor = "pointer";
+deleteButton.style.fontSize = "12px";
+deleteButton.style.fontFamily = "Arial, sans-serif";
+
+deleteButton.addEventListener("click", function () {
+
+    const confirmDelete = confirm(
+        "Are you sure you want to permanently delete " +
+        user.full_name + "?"
+    );
+
+    if (confirmDelete) {
+        fetch("php/delete_user.php", {
+            method: "POST",
+            credentials: "same-origin",
+            headers: {
+                "Content-Type": "application/x-www-form-urlencoded"
+            },
+            body: "user_id=" + encodeURIComponent(user.user_id)
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.success) {
+                alert("User deleted successfully!");
+
+                allUsers = allUsers.filter(
+                    item => item.user_id != user.user_id
+                );
+
+                filterUsers();
+            } else {
+                alert(data.message);
+            }
+        })
+        .catch(error => {
+            console.error("Delete error:", error);
+            alert("Unable to delete user.");
+        });
+    }
+
+});
+editButton.style.marginRight = "8px";
+
+actionCell.appendChild(editButton);
+actionCell.appendChild(deleteButton);
+        row.appendChild(nameCell);
+        row.appendChild(usernameCell);
+        row.appendChild(roleCell);
+        row.appendChild(statusCell);
+        row.appendChild(dateCell);
+        row.appendChild(actionCell);
+
+        table.appendChild(row);
+       });
+}
+
+// Search and filter users
+
+// Search and filter users
+function filterUsers() {
+
+    const searchValue = document.getElementById("userSearchInput").value.toLowerCase();
+    const selectedRole = document.getElementById("userRoleFilter").value;
+    const selectedStatus = document.getElementById("userStatusFilter").value;
+
+    const filteredUsers = allUsers.filter(user => {
+
+        const matchesSearch =
+            user.full_name.toLowerCase().includes(searchValue) ||
+            user.username.toLowerCase().includes(searchValue);
+
+        const matchesRole =
+            selectedRole === "All Roles" || user.role === selectedRole;
+
+        const matchesStatus =
+            selectedStatus === "All Status" || user.status === selectedStatus;
+
+        return matchesSearch && matchesRole && matchesStatus;
+    });
+
+    displayUsers(filteredUsers);
+}
+
+// Search button
+document.getElementById("userSearchButton").addEventListener("click", filterUsers);
+
+// Automatically filter when typing
+document.getElementById("userSearchInput").addEventListener("input", filterUsers);
+
+// Automatically filter when role changes
+document.getElementById("userRoleFilter").addEventListener("change", filterUsers);
+
+// Automatically filter when status changes
+document.getElementById("userStatusFilter").addEventListener("change", filterUsers);
+
+// Allow searching when pressing Enter
+document.getElementById("userSearchInput").addEventListener("keypress", function (event) {
+
+    if (event.key === "Enter") {
+        filterUsers();
+    }
+
+});
+
+
+// Allow searching when pressing Enter
+document.getElementById("userSearchInput").addEventListener("keypress", function (event) {
+
+    if (event.key === "Enter") {
+        document.getElementById("userSearchButton").click();
+    }
+
+});
+</script>
+
+</body>
+</html>
